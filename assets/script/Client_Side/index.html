@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Firebase Web Push Notification Example</h2>
+
+<p id="token"></p>
+ <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-messaging.js"></script>
+<script>
+
+
+    var firebaseConfig = {
+         apiKey: "AIzaSyBd_GgOKWXbLu51cZFpfl216ORePNG9xEc",
+    authDomain: "parag-255b0.firebaseapp.com",
+    databaseURL: "https://parag-255b0.firebaseio.com",
+    projectId: "parag-255b0",
+    storageBucket: "parag-255b0.appspot.com",
+    messagingSenderId: "1015801931628",
+    appId: "1:1015801931628:web:fdb4450335ff82b446b549",
+    measurementId: "G-52QVKT1WBS"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const messaging=firebase.messaging();
+
+    function IntitalizeFireBaseMessaging() {
+        messaging
+            .requestPermission()
+            .then(function () {
+                console.log("Notification Permission");
+                return messaging.getToken();
+            })
+            .then(function (token) {
+                console.log("Token : "+token);
+               
+                document.getElementById("token").innerHTML=token;
+    
+            })
+            .catch(function (reason) {
+                console.log(reason);
+            });
+    }
+
+    messaging.onMessage(function (payload) {
+        console.log(payload);
+        const notificationOption={
+            body:payload.notification.body,
+            icon:payload.notification.icon
+        };
+
+        if(Notification.permission==="granted"){
+            var notification=new Notification(payload.notification.title,notificationOption);
+
+            notification.onclick=function (ev) {
+                ev.preventDefault();
+                var iframe = document.createElement("iframe");
+                var message_id = payload.data["gcm.notification.message_id"];
+                //console.log(message_id);
+                //console.log("https://phanandfolk.com/save.php?message_id="+message_id);
+                window.open('../save.php?message_id='+message_id+'&url='+payload.notification.click_action);
+                notification.close();
+            }
+        }
+
+    });
+    
+   
+
+    messaging.onTokenRefresh(function () {
+        messaging.getToken()
+            .then(function (newtoken) {
+                console.log("New Token : "+ newtoken);
+            })
+            .catch(function (reason) {
+                console.log(reason);
+            })
+    })
+    IntitalizeFireBaseMessaging();
+</script>
+</body>
+</html>
