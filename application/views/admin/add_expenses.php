@@ -7,20 +7,26 @@
          <div class="form-group">
             <label for="">Amount</label>
             <input type="text"
-               class="form-control" name="amount" id="" aria-describedby="helpId" required>
+               class="form-control" autocomplete="off" name="amount" id="" aria-describedby="helpId" required>
          </div>
          <div class="form-check">
                 <div class="row">
                     <div class="col-md-2">
                         <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" name="limit_check" id="limit_check" value="1">
+                            <input type="checkbox" autocomplete="off" class="form-check-input" name="limit_check" id="limit_check" value="1">
                             Person name
                         </label>
                     </div>
                     <div class="col-md-2">
                         <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" name="country_check" id="country_id" value="1">
+                            <input type="checkbox" autocomplete="off" class="form-check-input" name="country_check" id="country_id" value="1">
                             Date
+                        </label>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-check-label">
+                            <input type="checkbox" autocomplete="off" class="form-check-input" name="return" value="1">
+                            Will be returned
                         </label>
                     </div>
                 </div>

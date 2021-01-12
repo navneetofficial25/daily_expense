@@ -24,12 +24,12 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <input type="text" placeholder="start" class="form-control" name="first">
+                                    <input type="text" autocomplete="off" placeholder="start" class="form-control" name="first">
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group">
-                                    <input type="text" placeholder="end" class="form-control" name="end">
+                                    <input type="text" autocomplete="off" placeholder="end" class="form-control" name="end">
                                 </div>
                             </div>
                             <div class="col">
@@ -43,7 +43,7 @@
         </div>
         <?php if(isset($fetch)){ ?>
         <div class="container">
-            <table class="table">
+            <table id="data" class="table">
                 <thead>
                     <tr class="bg-secondary text-white">
                         <th>Id</th>
@@ -51,21 +51,41 @@
                         <th>Amount</th>
                         <th>Message</th>
                         <th>Person Name</th>
+                        <th>Will Be Return</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $i=0; foreach($fetch as $value) {?>
-                    <?php echo ($value['amt'][0] == '+')? '<tr class=" bg-green">' : '<tr class=" bg-red">'; ?>
+                    <?php $rtr=[];$out=[];$in=[]; $i=0; foreach($fetch as $value) { ?>
+                    <?php echo ($value['amt'][0] == '+')? '<tr class=" bg-green">' : '<tr class=" bg-red">';
+                    ($value['amt'][0] == '+')?  $in[$i] = $value['amt']  : $out[$i] = $value['amt'] ;
+                    ($value['return_amt'][0] == '1')?  $rtr[$i] = $value['amt']  : '' ;
+                    ?>
                         <td scope="row"><?php echo $i; ?></td>
                         <td><?php echo $value['date'] ; ?></td>
                         <td><?php echo $value['amt'] ; ?></td>
                         <td><?php echo $value['msg'] ; ?></td>
                         <td><?php echo $value['personName'] ; ?></td>
+                        <td><?php echo ($value['return_amt'][0] == '1')? '<i class="fa fa-check" aria-hidden="true"></i>'  : '' ;?></td>
+
                     </tr>
                     <?php $i++;} ?>
                 </tbody>
             </table>
+            <table id="data" class="table">
+                <thead>
+                    <tr class="bg-secondary text-white">
+                        <th class="bg-success text-white">Input Amount : <?php echo array_sum($in) ?></th>
+                        <td class="bg-danger text-white">Output Amount : <?php echo array_sum($out) ?></td>
+                        <td class="bg-warning text-white">Return Amount : <?php echo array_sum($rtr) ?></td>
+                    </tr>
+                </thead>
         </div>
         <?php }?>
     </main>
 
+    <!-- <script>
+$(document).ready(function() {
+  $('#data').DataTable({
+  });
+} );
+</script> -->

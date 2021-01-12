@@ -32,7 +32,7 @@ class Login extends CI_Controller {
             $this->session->set_userdata("name",$check['user_name']);
             $array = array(
                 'error'   => false,
-                'msg'     => base_url().'admin/add_expenses',
+                'msg'     => base_url().'admin/add_expenses/',
                );
         }
         else

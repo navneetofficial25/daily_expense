@@ -15,7 +15,7 @@ class Db_target extends CI_Model {
         
     }
     public function fetch($data){
-       return $this->db->query('Select * from daily_expense where date between "'.$data['first'].'" And "'.$data['end'].'"')->result_array();
+       return $this->db->query('Select * from daily_expense where date between "'.$data['first'].'" And "'.$data['end'].'" ORDER BY date DESC')->result_array();
     }
     
 }
