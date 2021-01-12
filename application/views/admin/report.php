@@ -74,9 +74,10 @@
             <table id="data" class="table">
                 <thead>
                     <tr class="bg-secondary text-white">
-                        <th class="bg-success text-white">Input Amount : <?php echo array_sum($in) ?></th>
-                        <td class="bg-danger text-white">Output Amount : <?php echo array_sum($out) ?></td>
-                        <td class="bg-warning text-white">Return Amount : <?php echo array_sum($rtr) ?></td>
+                        <th class="bg-success text-white">Input Amount : <?php echo abs(array_sum($in)) ?></th>
+                        <th class="bg-danger text-white">Output Amount : <?php echo abs(array_sum($out)) ?></th>
+                        <th class="bg-warning text-white">Return Amount : <?php echo abs(array_sum($rtr)) ?></th>
+                        <th class="bg-info text-white">Total Spent :<?php echo abs(array_sum($out)) - abs(array_sum($rtr)) ?> </th>
                     </tr>
                 </thead>
         </div>
